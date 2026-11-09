@@ -20,7 +20,7 @@ The script compiles the Swift sources directly into an `.app` bundle and generat
 - Negate a variable in the expression with `~A`, `A~`, or a combining overline: `A̅`. The variable list itself should contain only uncomplemented variable names.
 - An output assignment such as `Y = ...` is optional. The constants `0` and `1` are supported.
 
-For example, with variables `A, B, C, D`, the function `Y = A~B~C~D~ + A~B~C~D` produces minterms 0 and 1 and simplifies to `~A · ~B · ~C`.
+For example, with variables `A, B, C, D`, the function `Y = A~B~C~D~ + A~B~C~D + A̅B C̅D` produces minterms 0, 1, and 5, and simplifies to `A̅ · B̅ · C̅ + A̅ · C̅ · D`. The third input term uses combining overlines typed with Unicode Hex Input; the simplified function in the Analysis section also displays complemented variables with overlines.
 
 ### Enable and use Unicode Hex Input in Finder
 

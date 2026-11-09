@@ -16,6 +16,20 @@ struct KarnaughAnalysis {
     let simplifiedExpression: String
     let simplifiedTerms: [BooleanTerm]
     let parity: BooleanParity?
+
+    var simplifiedExpressionWithOverlines: String {
+        guard !simplifiedTerms.isEmpty else { return "0" }
+        if simplifiedTerms.contains(where: { $0.literals.isEmpty }) { return "1" }
+
+        return simplifiedTerms.map { term in
+            term.literals.map { literal in
+                literal.isNegated ? "\(literal.variable)\u{0305}" : String(literal.variable)
+            }
+            .joined(separator: " · ")
+        }
+        .sorted()
+        .joined(separator: " + ")
+    }
 }
 
 struct BooleanLiteral {

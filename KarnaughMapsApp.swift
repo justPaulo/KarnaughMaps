@@ -107,7 +107,7 @@ private struct ContentView: View {
 
                 Button("Load example") {
                     model.variables = "A, B, C, D"
-                    model.expression = "A~B~C~D~ + A~B~C~D"
+                    model.expression = "A~B~C~D~ + A~B~C~D + A̅B C̅D"
                     model.analyze()
                 }
                 .buttonStyle(.bordered)
@@ -132,11 +132,11 @@ private struct ContentView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Label("Simplified sum of products", systemImage: "arrow.triangle.branch")
                     .font(.headline)
-                Text(result.simplifiedExpression)
+                Text(result.simplifiedExpressionWithOverlines)
                     .font(.system(.title3, design: .monospaced).weight(.semibold))
                     .textSelection(.enabled)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text("Negation is written as ~variable.")
+                Text("Complemented variables are shown with an overline.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -183,7 +183,7 @@ private final class KarnaughViewModel: ObservableObject {
             }
         }
     }
-    @Published var expression = "A~B~C~D~ + A~B~C~D" {
+    @Published var expression = "A~B~C~D~ + A~B~C~D + A̅B C̅D" {
         didSet {
             let uppercase = expression.uppercased()
             if expression != uppercase {
