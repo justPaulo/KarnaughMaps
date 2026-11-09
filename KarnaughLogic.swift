@@ -15,6 +15,7 @@ struct KarnaughAnalysis {
     let map: KarnaughMap
     let simplifiedExpression: String
     let simplifiedTerms: [BooleanTerm]
+    let parity: BooleanParity?
 }
 
 struct BooleanLiteral {
@@ -24,6 +25,11 @@ struct BooleanLiteral {
 
 struct BooleanTerm {
     let literals: [BooleanLiteral]
+}
+
+struct BooleanParity {
+    let variables: [Character]
+    let isNegated: Bool
 }
 
 enum LogicInputError: LocalizedError {
@@ -48,13 +54,15 @@ enum KarnaughLogic {
         let map = makeMap(variables: variables, minterms: minterms)
         let simplifiedTerms = simplify(variables: variables, minterms: minterms)
         let simplifiedExpression = format(simplifiedTerms)
+        let parity = findParity(variables: variables, minterms: minterms)
 
         return KarnaughAnalysis(
             variables: variables,
             minterms: minterms.sorted(),
             map: map,
             simplifiedExpression: simplifiedExpression,
-            simplifiedTerms: simplifiedTerms
+            simplifiedTerms: simplifiedTerms,
+            parity: parity
         )
     }
 
@@ -361,6 +369,33 @@ enum KarnaughLogic {
         }
         .sorted()
         .joined(separator: " + ")
+    }
+
+    private static func findParity(variables: [Character], minterms: [Int]) -> BooleanParity? {
+        let mintermSet = Set(minterms)
+        let constant = mintermSet.contains(0)
+        var parityVariables: [Character] = []
+
+        for (index, variable) in variables.enumerated() {
+            let bit = 1 << (variables.count - index - 1)
+            if mintermSet.contains(bit) != constant {
+                parityVariables.append(variable)
+            }
+        }
+
+        let parityMask = variables.enumerated().reduce(into: 0) { mask, item in
+            if parityVariables.contains(item.element) {
+                mask |= 1 << (variables.count - item.offset - 1)
+            }
+        }
+        for minterm in 0..<(1 << variables.count) {
+            let parity = !(minterm & parityMask).nonzeroBitCount.isMultiple(of: 2) != constant
+            if mintermSet.contains(minterm) != parity {
+                return nil
+            }
+        }
+
+        return BooleanParity(variables: parityVariables, isNegated: constant)
     }
 
     private static func coverage(of cube: Cube, minterms: [Int]) -> UInt64 {

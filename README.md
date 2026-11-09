@@ -11,7 +11,7 @@ Requirements: macOS 27 and the Swift compiler included with the macOS Command Li
 open build/KarnaughMaps.app
 ```
 
-The script compiles the Swift sources directly into an `.app` bundle; it does not require an Xcode project, Xcode, or XCTest.
+The script compiles the Swift sources directly into an `.app` bundle and generates a custom multi-resolution app icon featuring a friendly AND gate. It does not require an Xcode project, Xcode, or XCTest.
 
 ## Expression syntax
 
@@ -22,4 +22,10 @@ The script compiles the Swift sources directly into an `.app` bundle; it does no
 
 For example, with variables `A, B, C, D`, the function `Y = A~B~C~D~ + A~B~C~D` produces minterms 0 and 1 and simplifies to `~A · ~B · ~C`.
 
-The map uses a clean, ruled-grid layout with complemented-variable overbars and Gray-code row and column assignments, splitting variables between the two axes. Simplification uses Quine–McCluskey prime implicants and an exact cover search.
+The map uses a clean, ruled-grid layout with complemented-variable overbars and Gray-code row and column assignments, splitting variables between the two axes. Switch between the Karnaugh map and the gate-level circuit using the segmented view selector. The circuit offers three styles:
+
+- **SOP** shows the minimized sum-of-products using NOT, AND, and OR gates.
+- **NAND-only** converts that same minimized expression into an equivalent network of NAND gates. Tied NAND inputs provide inversions.
+- **XOR-aware** detects affine parity functions and displays an XOR/XNOR gate when possible; other functions fall back to the equivalent SOP drawing.
+
+Simplification uses Quine–McCluskey prime implicants and an exact cover search.

@@ -2,6 +2,7 @@
 /*
 !/.gitignore
 !/Info.plist
+!/AppIcon.swift
 !/KarnaughLogic.swift
 !/KarnaughMapsApp.swift
 !/README.md
