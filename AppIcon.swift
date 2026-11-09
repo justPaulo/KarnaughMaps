@@ -62,10 +62,6 @@ private func drawIcon() -> NSImage {
     color(1, 1, 1, 0.42).setFill()
     gloss.fill()
 
-    drawEye(at: NSPoint(x: 405, y: 456))
-    drawEye(at: NSPoint(x: 535, y: 456))
-    drawSmile()
-
     let label = NSAttributedString(
         string: "AND",
         attributes: [
@@ -111,34 +107,6 @@ private func drawTerminal(at point: NSPoint, fill: NSColor) {
     NSColor.white.withAlphaComponent(0.85).setStroke()
     terminal.lineWidth = 5
     terminal.stroke()
-}
-
-private func drawEye(at center: NSPoint) {
-    let eyeShadow = NSBezierPath(ovalIn: NSRect(x: center.x - 25, y: center.y - 29, width: 52, height: 58))
-    color(0.12, 0.27, 0.56, 0.30).setFill()
-    eyeShadow.fill()
-
-    let eye = NSBezierPath(ovalIn: NSRect(x: center.x - 21, y: center.y - 23, width: 42, height: 48))
-    color(1, 1, 1).setFill()
-    eye.fill()
-
-    let pupil = NSBezierPath(ovalIn: NSRect(x: center.x - 8, y: center.y - 8, width: 18, height: 23))
-    color(0.10, 0.20, 0.48).setFill()
-    pupil.fill()
-
-    let sparkle = NSBezierPath(ovalIn: NSRect(x: center.x - 5, y: center.y + 3, width: 7, height: 8))
-    color(1, 1, 1).setFill()
-    sparkle.fill()
-}
-
-private func drawSmile() {
-    let smile = NSBezierPath()
-    smile.move(to: NSPoint(x: 437, y: 535))
-    smile.curve(to: NSPoint(x: 510, y: 535), controlPoint1: NSPoint(x: 452, y: 590), controlPoint2: NSPoint(x: 495, y: 590))
-    smile.lineWidth = 13
-    smile.lineCapStyle = .round
-    color(0.12, 0.29, 0.58).setStroke()
-    smile.stroke()
 }
 
 private func pngData(from image: NSImage, pixelSize: Int) -> Data? {

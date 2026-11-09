@@ -11,7 +11,7 @@ Requirements: macOS 27 and the Swift compiler included with the macOS Command Li
 open build/KarnaughMaps.app
 ```
 
-The script compiles the Swift sources directly into an `.app` bundle and generates a custom multi-resolution app icon featuring a friendly AND gate. It does not require an Xcode project, Xcode, or XCTest.
+The script compiles the Swift sources directly into an `.app` bundle and generates a custom multi-resolution app icon featuring a dimensional logic gate. It does not require an Xcode project, Xcode, or XCTest.
 
 ## Expression syntax
 
