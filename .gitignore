@@ -2,11 +2,14 @@
 /*
 !/.gitignore
 !/Info.plist
+!/ARCHITECTURE.md
 !/AppIcon.swift
 !/KarnaughLogic.swift
 !/KarnaughMapsApp.swift
 !/README.md
 !/build-app.sh
+!/images/
+!/images/unicode-hex-input.png
 
 # Swift, Xcode, and app build output.
 /.build/
